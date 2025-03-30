@@ -15,13 +15,38 @@ function Home() {
     const [loading, setLoading] = useState(false);
     const [movies, setMovies] = useState(() => {
         const savedMovies = localStorage.getItem("movies");
+        //localStorage.clear();
         return savedMovies ? JSON.parse(savedMovies) : [];
     });
 
+
+
     // Salvataggio dei film su localStorage
     useEffect(() => {
-        localStorage.setItem("movies", JSON.stringify(movies));
-    }, [movies]);
+        const fetchMostPopularMovies = async () => {
+    
+            // Verifica se l'array è vuoto
+            if (movies.length === 0) {
+                try {
+                    const mostPopularMovies = await SearchMostPopular();
+                    setMovies(mostPopularMovies);
+                } catch (error) {
+                    console.error("Error fetching most popular movies:", error);
+                }
+            }
+    
+            // Salva i film nel localStorage solo se l'array non è vuoto
+            if (movies && movies.length > 0) {
+                localStorage.setItem("movies", JSON.stringify(movies));
+            } else {
+                console.log("Movies array is empty, not saving to localStorage.");
+            }
+        };
+    
+        fetchMostPopularMovies(); // Chiamata alla funzione asincrona
+    }, [movies]); // Dipendenza da `movies`
+    
+    
 
     const handleSearch = async (e) => {
         e.preventDefault();
@@ -54,9 +79,9 @@ function Home() {
     };
 
     return (
-        <SharedBody>
+        <>
             {/* Card di ricerca */}
-            <div className="flex filter-card gbl-bkg1-color flex-col md:flex-row max-w-4xl mx-auto border rounded-lg shadow-md p-4">
+            <div className="flex filter-card gbl-bkg1-color flex-col md:flex-row w-full mx-auto border rounded-lg shadow-md p-4">
                 <form onSubmit={handleSearch} className="flex flex-wrap gap-4 w-full items-center">
                     <input
                         type="text"
@@ -81,39 +106,43 @@ function Home() {
                 </form>
             </div>
 
-            {/* Immagine di caricamento */}
-            {loading && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                    <LoadingSpinner />
-                </div>
-            )}
+            <SharedBody>
 
-            {/* Messaggi di errore */}
-            {error && <NoMovieFound title="No Movie Found" subtitle="Try searching for something else." />}
 
-            {/* Lista di film */}
-            <div className="movies-grid">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                    {Array.isArray(movies) && movies.length > 0 ? (
-                        movies.map((movie, index) => (
-                            <MovieCard
-                                key={movie.imdbID || index}
-                                movie={{
-                                    id: movie.id || movie["#IMDB_ID"],
-                                    title: movie.title || movie["#TITLE"],
-                                    year: movie.year || movie["#YEAR"],
-                                    actors: movie.actors || movie["#ACTORS"],
-                                    poster: movie.poster || movie["#IMG_POSTER"],
-                                    imdbUrl: movie.imdbUrl || movie["#IMDB_URL"],
-                                }}
-                            />
-                        ))
-                    ) : (
-                        !loading && ""
-                    )}
+                {/* Immagine di caricamento */}
+                {loading && (
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <LoadingSpinner />
+                    </div>
+                )}
+
+                {/* Messaggi di errore */}
+                {error && <NoMovieFound title="No Movie Found" subtitle="Try searching for something else." />}
+
+                {/* Lista di film */}
+                <div className="movies-grid">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                        {Array.isArray(movies) && movies.length > 0 ? (
+                            movies.map((movie, index) => (
+                                <MovieCard
+                                    key={movie.imdbID || index}
+                                    movie={{
+                                        id: movie.id || movie["#IMDB_ID"],
+                                        title: movie.title || movie["#TITLE"],
+                                        year: movie.year || movie["#YEAR"],
+                                        actors: movie.actors || movie["#ACTORS"],
+                                        poster: movie.poster || movie["#IMG_POSTER"],
+                                        imdbUrl: movie.imdbUrl || movie["#IMDB_URL"],
+                                    }}
+                                />
+                            ))
+                        ) : (
+                            !loading && ""
+                        )}
+                    </div>
                 </div>
-            </div>
-        </SharedBody>
+            </SharedBody>
+        </>
     );
 }
 

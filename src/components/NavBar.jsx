@@ -20,7 +20,7 @@ export default function NavBar() {
                             alt="Movie Logo"
                         />
                         <Link to="/" className="navbar-links gbl-color1 font-bold text-2xl sm:text-3xl">
-                            Info Movie
+                            React Movie
                         </Link>
                     </div>
 
@@ -31,6 +31,9 @@ export default function NavBar() {
                         </Link>
                         <Link to="/favorites" className="navbar-links gbl-color1 hover:text-white px-3 py-2 rounded-md text-xl font-medium">
                             Favorites
+                        </Link>
+                        <Link to="/login" className="navbar-links gbl-color1 hover:text-white px-3 py-2 rounded-md text-xl font-medium">
+                            Login
                         </Link>
                     </div>
 
@@ -91,6 +94,12 @@ export default function NavBar() {
                             className="text-gray-300 hover:bg-gray-500 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                         >
                             Favorites
+                        </Link>
+                        <Link
+                            to="/login"
+                            className="text-gray-300 hover:bg-gray-500 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                        >
+                            Login
                         </Link>
                     </div>
                 </div>

@@ -7,10 +7,8 @@
 const SharedBody = ({ children }) => {
   return (
     <>
-      <div className="bg-gray-100">
-        <div className="h-10"></div>
+      <div className="min-h-screen bg-gradient-to-r from-blue-500 to-indigo-700">
         {children}
-        <div className="h-10"></div>
       </div>
 
     </>

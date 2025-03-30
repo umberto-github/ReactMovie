@@ -44,7 +44,6 @@ export function getMovies(url, type) {
 
 
 
-
 export const SearchMostPopular = async () => {
     const url = `https://imdb.iamidiotareyoutoo.com/search?q=popular`;
 
