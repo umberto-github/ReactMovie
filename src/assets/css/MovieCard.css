@@ -1,3 +1,6 @@
+
+
+
 .movie-card {
   position: relative;
   border-radius: 8px;
@@ -92,14 +95,36 @@
 }
 
 .movie-info h3 {
+  color: #ffd700;
   font-size: 1rem;
   margin: 0;
 }
 
 .movie-info p {
-  color: #999;
+  color: white;
   font-size: 0.9rem;
 }
+
+
+
+.movie-info a {
+  display: inline-block; /* Trasforma il link in un elemento a blocco per aggiungere padding */
+  text-align: center;
+  padding: 8px 16px; /* Spaziatura interna per il rettangolo */
+  text-decoration: none; /* Rimuove la sottolineatura predefinita */
+  color: #ffd700; /* Colore del testo */
+  border: 2px solid #333; /* Rettangolo attorno al link */
+  border-radius: 4px; /* Angoli arrotondati */
+  transition: all 0.3s ease; /* Animazione fluida per l'effetto hover */
+}
+
+.movie-info a:hover {
+  background-color: #747BFF; /* Colore di sfondo quando si passa sopra */
+  color: white; /* Cambia il colore del testo */
+  border-color: #555; /* Cambia il colore del bordo */
+}
+
+
 
 .user-rating {
   color: #ffd700;
@@ -122,3 +147,4 @@
     font-size: 1.2rem;
   }
 }
+

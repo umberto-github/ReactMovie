@@ -1,7 +1,19 @@
 
+.filter-button{
+  background-color: #6366f1;
+}
+
+.filter-button:hover{
+  background-color: #747BFF;;
+}
+
+.filter-checkbox{
+  color: white;
+}
+
 .filter-card{
   margin-bottom: 3rem;
-  background-color: lightgray;
+  /*background-color: lightgray;*/
 }
 
 .home {

@@ -3,14 +3,14 @@ import { useMovieContext } from "../contexts/MovieContext";
 
 // MovieCard.jsx
 function MovieCard({ movie }) {
-    const {isFavorite, addToFavorites, removeFromFavorites} = useMovieContext()
+    const { isFavorite, addToFavorites, removeFromFavorites } = useMovieContext()
     const favorite = isFavorite(movie.id)
 
     function onFavoriteClick(e) {
         e.preventDefault()
-        if(favorite)
+        if (favorite)
             removeFromFavorites(movie.id)
-        else 
+        else
             addToFavorites(movie)
     }
 
@@ -31,6 +31,7 @@ function MovieCard({ movie }) {
                 <h3>{movie.title}</h3>
                 <p>Year: {movie.year || movie.release_date}</p>
                 <p>Actors: {movie.actors}</p>
+
                 <a href={movie.imdbUrl} target="_blank" rel="noopener noreferrer">
                     View on IMDb
                 </a>

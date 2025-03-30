@@ -61,7 +61,7 @@ function Home() {
     return (
         <div className="home">
 
-            <div className="flex filter-card flex-col md:flex-row max-w-4xl mx-auto border rounded-lg shadow-md p-4">
+            <div className="flex filter-card gbl-bkg1-color flex-col md:flex-row max-w-4xl mx-auto border rounded-lg shadow-md p-4">
                 {/* Form per la ricerca */}
                 <form
                     onSubmit={handleSearch}
@@ -81,17 +81,17 @@ function Home() {
                         <input
                             type="checkbox"
                             name="mostPopularOpt"
-                            className="h-4 w-4 gbl-color1 rounded"
+                            className="h-4 w-4 rounded"
                             checked={mostPopular} // Legato allo stato
                             onChange={(e) => setMostPopular(e.target.checked)} // Aggiorna lo stato con booleano
                         />
-                        <span className="text-gray-700">Most Popular Movies</span>
+                        <span className="text-gray-700 filter-checkbox">Most Popular Movies</span>
                     </label>
 
                     {/* Bottone di ricerca */}
                     <button
                         type="submit"
-                        className="bg-indigo-500 text-white rounded-lg px-4 py-2 hover:bg-indigo-600"
+                        className="filter-button text-white rounded-lg px-4 py-2"
                     >
                         Search
                     </button>

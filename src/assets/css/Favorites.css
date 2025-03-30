@@ -1,3 +1,17 @@
+.movies-grid {
+  display: flex; /* Layout flessibile */
+  flex-wrap: wrap; /* Permette agli elementi di andare su più righe */
+  gap: 1.5rem; /* Spaziatura uniforme tra gli elementi */
+  padding: 1rem; /* Padding interno al contenitore */
+  justify-content: flex-end; /* Allinea gli elementi a destra */
+  flex-direction: row-reverse; /* Ordina gli elementi da destra verso sinistra */
+  width: 100%;
+  box-sizing: border-box; /* Include padding nel calcolo della larghezza */
+}
+
+
+
+
 .favorites {
   padding: 2rem;
   width: 100%;
