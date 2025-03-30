@@ -1,109 +1,97 @@
 import MovieCard from "../components/MovieCard";
+import LoadingSpinner from "../components/LoadSpinner";
+import NoMovieFound from "../components/NoMovieFound";
+import SharedBody from "../components/SharedBody";
 import "../assets/css/Home.css";
 import { useState, useEffect } from "react";
 import { SearchMovie, SearchMostPopular } from "../services/api";
 
+
 function Home() {
     // State
-    const [searchQuery, setSearchQuery] = useState(""); // Stato per la query di ricerca
-    const [mostPopular, setMostPopular] = useState(false); // Stato checkbox most popular movies
-    const [error, setError] = useState(null); // Stato per gli errori
-    const [loading, setLoading] = useState(false); // Stato per il caricamento
-    //creo uno stato in cui inizialmente verifico se i film sono presenti in localstorage
+    const [searchQuery, setSearchQuery] = useState("");
+    const [mostPopular, setMostPopular] = useState(false);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
     const [movies, setMovies] = useState(() => {
-        //useState viene eseguito solo una volta al caricamento della pagina
-        // Recupera i dati salvati dal localStorage quando la pagina si carica
         const savedMovies = localStorage.getItem("movies");
         return savedMovies ? JSON.parse(savedMovies) : [];
-    }); // Stato per la lista dei film
+    });
 
-
-    // Effetto per salvare i film nel localStorage quando cambia lo stato
+    // Salvataggio dei film su localStorage
     useEffect(() => {
         localStorage.setItem("movies", JSON.stringify(movies));
     }, [movies]);
 
-
     const handleSearch = async (e) => {
-        e.preventDefault(); // Previeni il comportamento predefinito del form
+        e.preventDefault();
+        setLoading(true);
 
-        setLoading(true); // Inizia il caricamento
-
-        let searchedMovies = []; // Inizializza la variabile
+        let searchedMovies = [];
+        await new Promise((resolve) => setTimeout(resolve, 3000)); // Simulazione ritardo
 
         try {
             if (mostPopular) {
-                // Ottieni i film più popolari
                 searchedMovies = await SearchMostPopular();
             } else if (searchQuery.trim().length > 0) {
-                // Passa la query dinamica se è presente
                 searchedMovies = await SearchMovie(searchQuery.trim());
             }
 
-            // Gestione dei risultati
             if (!searchedMovies || searchedMovies.length === 0) {
                 setError("No movies found.");
             } else {
-                setError(null); // Resetta lo stato degli errori
+                setError(null);
             }
 
-            // Aggiorna la lista dei film
             setMovies(searchedMovies);
         } catch (error) {
             console.error("Error fetching movies:", error);
-            setError("Failed to load movies."); // Gestisce eventuali errori
-            setMovies([]); // Resetta lo stato dei film in caso di errore
+            setError("Failed to load movies.");
+            setMovies([]);
         } finally {
-            setLoading(false); // Termina il caricamento
+            setLoading(false);
         }
     };
 
     return (
-        <div className="home">
-
+        <SharedBody>
+            {/* Card di ricerca */}
             <div className="flex filter-card gbl-bkg1-color flex-col md:flex-row max-w-4xl mx-auto border rounded-lg shadow-md p-4">
-                {/* Form per la ricerca */}
-                <form
-                    onSubmit={handleSearch}
-                    className="flex flex-wrap gap-4 w-full items-center"
-                >
-                    {/* Input per la ricerca */}
+                <form onSubmit={handleSearch} className="flex flex-wrap gap-4 w-full items-center">
                     <input
                         type="text"
                         placeholder="Search for movies ..."
                         className="flex-grow border border-gray-300 rounded-md p-2 w-full md:w-auto focus:outline-none focus:ring focus:ring-indigo-500"
-                        value={searchQuery} // Collega l'input allo stato
-                        onChange={(e) => setSearchQuery(e.target.value)} // Aggiorna la query
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
                     />
-
-                    {/* Checkbox per "Most Popular" */}
                     <label className="flex items-center space-x-2">
                         <input
                             type="checkbox"
                             name="mostPopularOpt"
                             className="h-4 w-4 rounded"
-                            checked={mostPopular} // Legato allo stato
-                            onChange={(e) => setMostPopular(e.target.checked)} // Aggiorna lo stato con booleano
+                            checked={mostPopular}
+                            onChange={(e) => setMostPopular(e.target.checked)}
                         />
                         <span className="text-gray-700 filter-checkbox">Most Popular Movies</span>
                     </label>
-
-                    {/* Bottone di ricerca */}
-                    <button
-                        type="submit"
-                        className="filter-button text-white rounded-lg px-4 py-2"
-                    >
+                    <button type="submit" className="filter-button text-white rounded-lg px-4 py-2">
                         Search
                     </button>
                 </form>
             </div>
 
+            {/* Immagine di caricamento */}
+            {loading && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                  <LoadingSpinner />
+                </div>
+            )}
 
+            {/* Messaggi di errore */}
+            {error && <NoMovieFound/>}
 
-            {/* Mostra errori, caricamento o film */}
-            {loading && <div>Loading...</div>} {/* Stato di caricamento */}
-            {error && <div className="error">{error}</div>} {/* Messaggio di errore */}
-
+            {/* Lista di film */}
             <div className="movies-grid">
                 {Array.isArray(movies) && movies.length > 0 ? (
                     movies.map((movie, index) => (
@@ -120,10 +108,10 @@ function Home() {
                         />
                     ))
                 ) : (
-                    !loading && <p>No movies found.</p>
+                    !loading && ""
                 )}
             </div>
-        </div>
+        </SharedBody>
     );
 }
 
