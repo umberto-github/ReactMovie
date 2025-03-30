@@ -28,7 +28,7 @@ function Home() {
         setLoading(true);
 
         let searchedMovies = [];
-        await new Promise((resolve) => setTimeout(resolve, 3000)); // Simulazione ritardo
+        await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulazione ritardo
 
         try {
             if (mostPopular) {
@@ -84,32 +84,34 @@ function Home() {
             {/* Immagine di caricamento */}
             {loading && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                  <LoadingSpinner />
+                    <LoadingSpinner />
                 </div>
             )}
 
             {/* Messaggi di errore */}
-            {error && <NoMovieFound/>}
+            {error && <NoMovieFound title="No Movie Found" subtitle="Try searching for something else." />}
 
             {/* Lista di film */}
             <div className="movies-grid">
-                {Array.isArray(movies) && movies.length > 0 ? (
-                    movies.map((movie, index) => (
-                        <MovieCard
-                            key={movie.imdbID || index}
-                            movie={{
-                                id: movie.id || movie["#IMDB_ID"],
-                                title: movie.title || movie["#TITLE"],
-                                year: movie.year || movie["#YEAR"],
-                                actors: movie.actors || movie["#ACTORS"],
-                                poster: movie.poster || movie["#IMG_POSTER"],
-                                imdbUrl: movie.imdbUrl || movie["#IMDB_URL"],
-                            }}
-                        />
-                    ))
-                ) : (
-                    !loading && ""
-                )}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                    {Array.isArray(movies) && movies.length > 0 ? (
+                        movies.map((movie, index) => (
+                            <MovieCard
+                                key={movie.imdbID || index}
+                                movie={{
+                                    id: movie.id || movie["#IMDB_ID"],
+                                    title: movie.title || movie["#TITLE"],
+                                    year: movie.year || movie["#YEAR"],
+                                    actors: movie.actors || movie["#ACTORS"],
+                                    poster: movie.poster || movie["#IMG_POSTER"],
+                                    imdbUrl: movie.imdbUrl || movie["#IMDB_URL"],
+                                }}
+                            />
+                        ))
+                    ) : (
+                        !loading && ""
+                    )}
+                </div>
             </div>
         </SharedBody>
     );

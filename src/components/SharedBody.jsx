@@ -5,12 +5,16 @@
 //il quale può contenere al suo interno 
 //altri componenti e/o strutture html
 const SharedBody = ({ children }) => {
-    return (
-      <div className="relative min-h-screen bg-gray-100">
+  return (
+    <>
+      <div className="bg-gray-100">
+        <div className="h-10"></div>
         {children}
+        <div className="h-10"></div>
       </div>
-    );
-  };
-  
-  export default SharedBody;
-  
+
+    </>
+  );
+};
+
+export default SharedBody;
