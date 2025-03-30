@@ -8,28 +8,28 @@ export default function NavBar() {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <nav className="navbar-bkg">
+        <nav className="gbl-bkg1-color">
             {/* Contenitore principale */}
             <div className="w-full px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     {/* Sinistra: Logo e Nome */}
                     <div className="flex items-center space-x-2">
                         <img
-                            className="h-10 w-auto"
+                            className="h-12 w-auto"
                             src={MovieLogo}
                             alt="Movie Logo"
                         />
-                        <Link to="/" className="navbar-links font-bold text-2xl sm:text-3xl">
+                        <Link to="/" className="navbar-links gbl-color1 font-bold text-2xl sm:text-3xl">
                             Info Movie
                         </Link>
                     </div>
 
                     {/* Destra: Link di navigazione (visibile solo su desktop) */}
                     <div className="hidden md:flex space-x-4">
-                        <Link to="/" className="navbar-links hover:text-white px-3 py-2 rounded-md text-xl font-medium">
+                        <Link to="/" className="navbar-links gbl-color1 hover:text-white px-3 py-2 rounded-md text-xl font-medium">
                             Home
                         </Link>
-                        <Link to="/favorites" className="navbar-links hover:text-white px-3 py-2 rounded-md text-xl font-medium">
+                        <Link to="/favorites" className="navbar-links gbl-color1 hover:text-white px-3 py-2 rounded-md text-xl font-medium">
                             Favorites
                         </Link>
                     </div>

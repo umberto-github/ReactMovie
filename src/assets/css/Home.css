@@ -1,3 +1,9 @@
+
+.filter-card{
+  margin-bottom: 3rem;
+  background-color: lightgray;
+}
+
 .home {
   padding: 2rem 0;
   width: 100%;

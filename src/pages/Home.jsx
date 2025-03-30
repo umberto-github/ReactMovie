@@ -60,27 +60,45 @@ function Home() {
 
     return (
         <div className="home">
-            {/* Form per la ricerca */}
-            <form onSubmit={handleSearch} className="search-form">
-                <input
-                    type="text"
-                    placeholder="Search for movies ..."
-                    className="search-input"
-                    value={searchQuery} // Collega l'input allo stato
-                    onChange={(e) => setSearchQuery(e.target.value)} // Aggiorna la query
-                />
 
-                <label>
+            <div className="flex filter-card flex-col md:flex-row max-w-4xl mx-auto border rounded-lg shadow-md p-4">
+                {/* Form per la ricerca */}
+                <form
+                    onSubmit={handleSearch}
+                    className="flex flex-wrap gap-4 w-full items-center"
+                >
+                    {/* Input per la ricerca */}
                     <input
-                        type="checkbox"
-                        name="mostPopularOpt"
-                        checked={mostPopular} // Legato allo stato
-                        onChange={(e) => setMostPopular(e.target.checked)} // Aggiorna lo stato con booleano
+                        type="text"
+                        placeholder="Search for movies ..."
+                        className="flex-grow border border-gray-300 rounded-md p-2 w-full md:w-auto focus:outline-none focus:ring focus:ring-indigo-500"
+                        value={searchQuery} // Collega l'input allo stato
+                        onChange={(e) => setSearchQuery(e.target.value)} // Aggiorna la query
                     />
-                    Most Popular Movies
-                </label>
-                <button type="submit" className="search-button">Search</button>
-            </form>
+
+                    {/* Checkbox per "Most Popular" */}
+                    <label className="flex items-center space-x-2">
+                        <input
+                            type="checkbox"
+                            name="mostPopularOpt"
+                            className="h-4 w-4 gbl-color1 rounded"
+                            checked={mostPopular} // Legato allo stato
+                            onChange={(e) => setMostPopular(e.target.checked)} // Aggiorna lo stato con booleano
+                        />
+                        <span className="text-gray-700">Most Popular Movies</span>
+                    </label>
+
+                    {/* Bottone di ricerca */}
+                    <button
+                        type="submit"
+                        className="bg-indigo-500 text-white rounded-lg px-4 py-2 hover:bg-indigo-600"
+                    >
+                        Search
+                    </button>
+                </form>
+            </div>
+
+
 
             {/* Mostra errori, caricamento o film */}
             {loading && <div>Loading...</div>} {/* Stato di caricamento */}
