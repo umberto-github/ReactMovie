@@ -1,5 +1,6 @@
 
 # Comandi React
+
 npm create vite@latest <my-project>
 npm install
 npm run dev
