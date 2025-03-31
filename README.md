@@ -12,7 +12,7 @@ npm run dev
 
 # ReactMovie
 Applicazione Movie
-- react sito hostato : https://movie81.netlify.app/
+- react sito hostato (utilizza Continuous Deployment da GitHub) : https://movie81.netlify.app/
 # Utilizzare Netlify come Cloude di Hosting 
 netlify
 user: bachetti.u@gmail.com
